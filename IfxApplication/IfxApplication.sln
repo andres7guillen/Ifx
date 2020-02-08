@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IfxApi", "IfxApi\IfxApi.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IfxData", "IfxData\IfxData.csproj", "{2DDB9EF7-9A1A-4887-9A62-8BC4C6652571}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IfxDomain", "IfxDomain\IfxDomain.csproj", "{8BF03B17-7A2B-4EFA-AEA9-94F71F716FAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IfxDomain", "IfxDomain\IfxDomain.csproj", "{8BF03B17-7A2B-4EFA-AEA9-94F71F716FAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IfxInfrastructure", "IfxInfrastructure\IfxInfrastructure.csproj", "{4B9079B7-6841-43B4-9C52-CF73599E01E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IfxInfrastructure", "IfxInfrastructure\IfxInfrastructure.csproj", "{4B9079B7-6841-43B4-9C52-CF73599E01E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmpleadoTest", "EmpleadoTest\EmpleadoTest.csproj", "{C4BD08E0-E4E6-4834-9D9F-62042C28CD91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{4B9079B7-6841-43B4-9C52-CF73599E01E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B9079B7-6841-43B4-9C52-CF73599E01E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B9079B7-6841-43B4-9C52-CF73599E01E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4BD08E0-E4E6-4834-9D9F-62042C28CD91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4BD08E0-E4E6-4834-9D9F-62042C28CD91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4BD08E0-E4E6-4834-9D9F-62042C28CD91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4BD08E0-E4E6-4834-9D9F-62042C28CD91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
