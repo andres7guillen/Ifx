@@ -83,6 +83,10 @@ namespace IfxApi
             }
 
             app.UseHttpsRedirection();
+            app.UseCors(builder => builder.WithOrigins("*")
+            .WithMethods("*")
+            .WithHeaders("*")
+            );
             app.UseAuthentication();
             app.UseMvc();
         }

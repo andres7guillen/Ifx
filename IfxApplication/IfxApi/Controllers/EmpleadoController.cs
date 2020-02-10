@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using IfxApi.Converts;
 using IfxApi.Models;
 using IfxData.Entities;
 using IfxDomain.Servicio;
@@ -19,22 +20,22 @@ namespace IfxApi.Controllers
     public class EmpleadoController : ControllerBase
     {
         private IEmpleadoServicio _EmpleadoServicio;
-        private readonly IMapper _mapper;
+        //private readonly IMapper _mapper;
         public EmpleadoController(IEmpleadoServicio EmpleadoServicio, IMapper mapper)
         {
             _EmpleadoServicio = EmpleadoServicio;
-            _mapper = mapper;
+            //_mapper = mapper;
         }
 
 
-        [HttpGet("Obtener")]
+        [HttpGet("ObtenerPorId")]
         [AllowAnonymous]
         public async Task<IActionResult> Obtener(string IdEmpleado)
         {
             Guid empleadoId = Guid.Parse(IdEmpleado);
             var empleado = await _EmpleadoServicio.Obtener(empleadoId);
-            var resultado = _mapper.Map<EmpleadoModel>(empleado);
-            return Ok(resultado);
+            //var resultado = _mapper.Map<EmpleadoModel>(empleado);
+            return Ok(EmpleadoConvert.toEmpleadoModel(empleado));
         }
 
         [HttpGet("ObtenerTodos")]
@@ -42,8 +43,17 @@ namespace IfxApi.Controllers
         public async Task<IActionResult> ObtenerTodos()
         {
             var listado = await _EmpleadoServicio.ObtenerTodos();
-            var resultado = _mapper.Map<IEnumerator<EmpleadoModel>>(listado);
-            return Ok(resultado);
+            if (listado.Count() >= 1)
+            {
+                //var resultado = _mapper.Map<IEnumerator<EmpleadoModel>>(listado);
+                return Ok(EmpleadoConvert.toListEmpleadoModel(listado));
+            }
+            else
+            {
+                string mensaje = "No hay empleados registrados";
+                return Ok(mensaje);
+            }
+
         }
 
         //Update,Create,Delete solo admin
@@ -51,18 +61,18 @@ namespace IfxApi.Controllers
         [HttpPut("Actualizar")]
         public async Task<IActionResult> Actualizar([FromBody]EmpleadoModel modelo)
         {
-            var empleado = _mapper.Map<Empleado>(modelo);
-            var resultado = await _EmpleadoServicio.Actualizar(empleado);
-            return Ok(_mapper.Map<EmpleadoModel>(resultado));
+            //var empleado = _mapper.Map<Empleado>(modelo);
+            var resultado = await _EmpleadoServicio.Actualizar(EmpleadoConvert.toEmpleadoEntity(modelo));
+            return Ok(EmpleadoConvert.toEmpleadoModel(resultado));
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
-        [HttpPost("Create")]
+        [HttpPost("Crear")]
         public async Task<IActionResult> Create([FromBody]EmpleadoModel modelo)
         {
-            Empleado empleado = _mapper.Map<Empleado>(modelo);
-            var resultado = await _EmpleadoServicio.Crear(empleado);
-            return Ok(_mapper.Map<EmpleadoModel>(resultado));
+            //Empleado empleado = _mapper.Map<Empleado>(modelo);
+            var resultado = await _EmpleadoServicio.Crear(EmpleadoConvert.toEmpleadoEntity(modelo));
+            return Ok(EmpleadoConvert.toEmpleadoModel(resultado));
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
@@ -73,15 +83,25 @@ namespace IfxApi.Controllers
             var resultado = await _EmpleadoServicio.Eliminar(empleadoId);
             if (resultado)
             {
-                string mensaje = "Empleado eliminado.";
-                return Ok(mensaje);
+                ResponseModel res = new ResponseModel()
+                {
+                    mensaje = "Empleado eliminado.",
+                    estado = 200
+                };
+
+
+                return Ok(res);
             }
             else
             {
-                string mensaje = "No se pudo eliminar el empleado";
-                return Ok(mensaje);
+                ResponseModel res = new ResponseModel()
+                {
+                    mensaje = "No se pudo eliminar el empleado",
+                    estado = 200
+                };
+                return Ok(res);
             }
-            
+
         }
 
     }
