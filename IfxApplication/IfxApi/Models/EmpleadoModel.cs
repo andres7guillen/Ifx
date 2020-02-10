@@ -12,7 +12,7 @@ namespace IfxApi.Models
         public string Apellidos { get; set; }
         public string Celular { get; set; }
         public string Email { get; set; }
+        public string Entidad { get; set; }
         public string EntidadId { get; set; }
-        public EntidadModel Entidad { get; set; }
     }
 }

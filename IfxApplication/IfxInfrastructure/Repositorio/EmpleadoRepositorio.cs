@@ -42,12 +42,16 @@ namespace IfxInfrastructure.Repositorio
 
         public async Task<Empleado> Obtener(Guid IdEmpleado)
         {
-            return await _context.Empleados.FirstOrDefaultAsync(e => e.Id == IdEmpleado);
+            return await _context.Empleados
+                .Include(e => e.Entidad)
+                .FirstOrDefaultAsync(e => e.Id == IdEmpleado);
         }
 
         public async Task<List<Empleado>> ObtenerTodos()
         {
-            return await _context.Empleados.ToListAsync();
+            return await _context.Empleados
+                .Include(e => e.Entidad)
+                .ToListAsync();
         }
     }
 }

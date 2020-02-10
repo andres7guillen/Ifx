@@ -36,6 +36,12 @@ namespace IfxApi.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<UserToken>> createUser([FromBody]UserInfo model)
         {
+            var usuario = await _userManager.FindByEmailAsync(model.Email);
+            if (usuario != null)
+            {
+                string mensaje = $"El usuario con el correo: {model.Email}, ya existe.";
+                return BadRequest(mensaje);
+            }
 
             var applicationUser = new ApplicationUser { Id = Guid.NewGuid(), UserName = model.Email, Email = model.Email };
             var result = await _userManager.CreateAsync(applicationUser, model.PassWord);
@@ -66,8 +72,8 @@ namespace IfxApi.Controllers
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Invalido intento de sesion");
-                return BadRequest(ModelState);
+                string mensaje = $"El correo: {userInfo.Email} y la contraseña estan incorrectas";
+                return BadRequest(mensaje);
             }
         }
 
