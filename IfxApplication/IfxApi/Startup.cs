@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace IfxApi
 {
@@ -51,6 +52,10 @@ namespace IfxApi
                 .AddDefaultTokenProviders();
             services.RegistroServiciosNegocio();//Registro de servicios desde clase de Utility
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IFX Api Resr", Version = "v1" });
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -82,6 +87,13 @@ namespace IfxApi
                 app.UseHsts();
             }
 
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json","Ifx Api Rest V1");
+                //c.RoutePrefix = string.Empty;
+            });
             app.UseHttpsRedirection();
             app.UseCors(builder => builder.WithOrigins("*")
             .WithMethods("*")

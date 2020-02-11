@@ -37,7 +37,7 @@ namespace IfxApi.Converts
                 Email = input.Email,
                 EntidadId = Guid.Parse(input.EntidadId),
                 Nombres = input.Nombres,
-                Id = Guid.Parse(input.Id)
+                //Id = Guid.Parse(input.Id)
             };
             return output;
         }
