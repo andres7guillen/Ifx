@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using IfxApi.Converts;
 using IfxApi.Models;
 using IfxData.Entities;
 using IfxDomain.Servicio;
@@ -19,27 +20,27 @@ namespace IfxApi.Controllers
     public class EntidadController : ControllerBase
     {
         private readonly IEntidadServicio _entidadServicio;
-        private readonly IMapper _mapper;
+        //private readonly IMapper _mapper;
 
         public EntidadController(IEntidadServicio entidadServicio, IMapper mapper)
         {
             _entidadServicio = entidadServicio;
-            _mapper = mapper;
+            //_mapper = mapper;
         }
 
         [HttpGet("ObtenerTodas")]
         public async Task<IActionResult> ObtenerTodas()
         {
             var listado = await _entidadServicio.obtenerTodas();
-            return Ok(_mapper.Map<IEnumerable<EntidadModel>>(listado));
+            return Ok(EntidadConvert.toListModel(listado));
         }
 
         [HttpPost("Crear")]
         public async Task<IActionResult> Crear([FromBody]EntidadModel modelo)
         {
-            var entidad = _mapper.Map<Entidad>(modelo);
-            var resultado = await _entidadServicio.Crear(entidad);
-            return Ok(_mapper.Map<EntidadModel>(resultado));
+            
+            var resultado = await _entidadServicio.Crear(EntidadConvert.toEntity(modelo));
+            return Ok(EntidadConvert.toModel(resultado));
         }
 
     }

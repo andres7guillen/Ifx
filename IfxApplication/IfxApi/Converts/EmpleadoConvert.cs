@@ -42,5 +42,10 @@ namespace IfxApi.Converts
             return output;
         }
 
+        public static List<Empleado> toListEntity(List<EmpleadoModel> input)
+        {
+            return input.Select(e => toEmpleadoEntity(e)).ToList();
+        }
+
     }
 }
