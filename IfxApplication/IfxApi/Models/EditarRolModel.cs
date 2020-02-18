@@ -7,7 +7,7 @@ namespace IfxApi.Models
 {
     public class EditarRolModel
     {
-        public string UsuarioId { get; set; }
-        public string RolNombre { get; set; }
+        public string UsuarioEmail { get; set; }
+        public string Rol { get; set; }
     }
 }
