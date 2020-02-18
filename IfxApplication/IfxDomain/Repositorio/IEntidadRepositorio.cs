@@ -10,5 +10,9 @@ namespace IfxDomain.Repositorio
     {
         Task<List<Entidad>> obtenerTodas();
         Task<Entidad> Crear(Entidad modelo);
+
+        Task<Entidad> Actualizar(Entidad Model);
+        Task<bool> Eliminar(Guid EntidadId);
+        Task<Entidad> Obtener(Guid EntidadId);
     }
 }

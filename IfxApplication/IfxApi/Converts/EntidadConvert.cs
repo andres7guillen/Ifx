@@ -12,10 +12,10 @@ namespace IfxApi.Converts
         public static Entidad toEntity(EntidadModel input)
         {
             Entidad output = new Entidad();
-            output.Empleados = input.Empleados != null ? output.Empleados = EmpleadoConvert.toListEntity(input.Empleados);
+            output.Empleados = input.Empleados != null ? output.Empleados = EmpleadoConvert.toListEntity(input.Empleados) : output.Empleados = null;
             output.Id = input.Id != null ? output.Id = Guid.Parse(input.Id) : output.Id = Guid.NewGuid();
             output.RazonSocial = input.RazonSocial != null ? output.RazonSocial = input.RazonSocial : output.RazonSocial = "";
-            output.Telefono = input.Telefono != null ? output.Telefono = input.RazonSocial : output.Telefono = "";
+            output.Telefono = input.Telefono != null ? output.Telefono = input.Telefono : output.Telefono = "";
             return output;
         }
 
