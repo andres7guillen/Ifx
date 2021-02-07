@@ -68,7 +68,7 @@ namespace IfxApi.Controllers
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [HttpPost("Crear")]
-        public async Task<IActionResult> Create([FromBody]EmpleadoModel modelo)
+        public async Task<IActionResult> Crear([FromBody]EmpleadoModel modelo)
         {
             //Empleado empleado = _mapper.Map<Empleado>(modelo);
             var resultado = await _EmpleadoServicio.Crear(EmpleadoConvert.toEmpleadoEntity(modelo));

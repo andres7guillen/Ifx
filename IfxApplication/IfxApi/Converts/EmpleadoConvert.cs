@@ -16,7 +16,7 @@ namespace IfxApi.Converts
             output.Apellidos = input.Apellidos;
             output.Celular = input.Celular;
             output.Email = input.Email;
-            output.Entidad = input.Entidad == null ? "Sin Entidad": input.Entidad.RazonSocial;
+            output.Entidad = input.Entidad != null ?  input.Entidad.RazonSocial : "Sin Entidad";
             output.Id = input.Id.ToString();
             output.Nombres = input.Nombres;
             output.EntidadId = input.EntidadId.ToString();
@@ -30,15 +30,13 @@ namespace IfxApi.Converts
 
         public static Empleado toEmpleadoEntity(EmpleadoModel input)
         {
-            Empleado output = new Empleado()
-            {
-                Apellidos = input.Apellidos,
-                Celular = input.Celular,
-                Email = input.Email,
-                EntidadId = Guid.Parse(input.EntidadId),
-                Nombres = input.Nombres,
-                Id = Guid.Parse(input.Id)
-            };
+            Empleado output = new Empleado();
+            output.Apellidos = input.Apellidos != null ? output.Apellidos = input.Apellidos : "-O-";
+            output.Celular = input.Celular != null ? output.Celular = input.Celular : "-O-";
+            output.Email = input.Email != null ? output.Email = input.Email : "-O-";
+            output.EntidadId = input.EntidadId != null ? output.EntidadId = Guid.Parse(input.EntidadId) : Guid.Empty;
+            output.Nombres = input.Nombres != null ? output.Nombres = input.Nombres : "-O-";
+            output.Id = input.Id != null ? output.Id = Guid.Parse(input.Id) : Guid.Empty;
             return output;
         }
 

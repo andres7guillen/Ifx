@@ -26,10 +26,18 @@ namespace IfxInfrastructure.Repositorio
 
         public async Task<Entidad> Crear(Entidad modelo)
         {
-            modelo.Id = Guid.NewGuid();
-            await _context.Entidades.AddAsync(modelo);
-            await _context.SaveChangesAsync();
-            return modelo;
+            try
+            {
+                modelo.Id = Guid.NewGuid();
+                await _context.Entidades.AddAsync(modelo);
+                await _context.SaveChangesAsync();
+                return modelo;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
         }
 
         public async Task<bool> Eliminar(Guid EntidadId)

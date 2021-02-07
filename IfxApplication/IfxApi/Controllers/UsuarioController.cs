@@ -27,22 +27,30 @@ namespace IfxApi.Controllers
         [HttpPost("AsignarRolUsuario")]
         public async Task<IActionResult> AsignarRolUsuario(EditarRolModel model)
         {
-            var usuario = await _userManager.FindByIdAsync(model.UsuarioId);
-            if (usuario == null) { return NotFound(); }
-            await _userManager.AddClaimAsync(usuario, new Claim(ClaimTypes.Role, model.RolNombre));
-            await _userManager.AddToRoleAsync(usuario, model.RolNombre);
-            string Mensaje = $"Se añadio el rol = {model.RolNombre} al usuario {usuario.UserName} correctamente";
-            return Ok(Mensaje);
+            try
+            {
+                var usuario = await _userManager.FindByEmailAsync(model.UsuarioEmail);
+                if (usuario == null) { return NotFound(); }
+                await _userManager.AddClaimAsync(usuario, new Claim(ClaimTypes.Role, model.Rol));
+                var rolAsociado = await _userManager.AddToRoleAsync(usuario, model.Rol);
+                string Mensaje = $"Se añadio el rol = {model.Rol} al usuario {usuario.UserName} correctamente";
+                return Ok(Mensaje);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
         }
 
         [HttpPost("RemoverRolUsuario")]
         public async Task<IActionResult> RemoverRolUsuario(EditarRolModel model)
         {
-            var usuario = await _userManager.FindByIdAsync(model.UsuarioId);
+            var usuario = await _userManager.FindByEmailAsync(model.UsuarioEmail);
             if (usuario == null) { return NotFound(); }
-            await _userManager.RemoveClaimAsync(usuario, new Claim(ClaimTypes.Role, model.RolNombre));
-            await _userManager.RemoveFromRoleAsync(usuario, model.RolNombre);
-            string Mensaje = $"Se removio el rol = {model.RolNombre} al usuario {usuario.UserName} correctamente";
+            await _userManager.RemoveClaimAsync(usuario, new Claim(ClaimTypes.Role, model.Rol));
+            await _userManager.RemoveFromRoleAsync(usuario, model.Rol);
+            string Mensaje = $"Se removio el rol = {model.Rol} al usuario {usuario.UserName} correctamente";
             return Ok(Mensaje);
         }
 

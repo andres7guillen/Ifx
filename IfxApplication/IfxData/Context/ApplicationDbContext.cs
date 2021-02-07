@@ -18,14 +18,15 @@ namespace IfxData.Context
         public DbSet<Entidad> Entidades { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //var roleAdmin = new IdentityRole()
-            //{
-            //    Id = Guid.NewGuid().ToString(),
-            //    Name = "admin",
-            //    NormalizedName = "admin",
-            //    ConcurrencyStamp = "0663BAE8-C5C5-48AE-92AC-D747ADC14EAE"
-            //};
-            //modelBuilder.Entity<UserRole>().HasData(roleAdmin);
+            Guid guidAdmin = Guid.NewGuid();
+            var roleAdmin = new UserRole()
+            {
+                Id = guidAdmin,
+                Name = "admin",
+                NormalizedName = "admin",
+                ConcurrencyStamp = "0663BAE8-C5C5-48AE-92AC-D747ADC14EAE"
+            };
+            modelBuilder.Entity<UserRole>().HasData(roleAdmin);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Entidad>()
